@@ -1,0 +1,33 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+src/main/resources/application.properties
+src/main/resources/certificado.cer
+src/main/resources/files/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+.vscode/
+
+#log
+log-file.log
