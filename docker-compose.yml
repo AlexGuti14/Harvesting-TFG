@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+    harvesting-postgres:
+        image: postgres:latest
+        container_name: harvesting-postgres
+        volumes:
+          - postgres-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: adminguti
+          POSTGRES_DB: jobscheduled
+        ports:
+            - "5432:5432"
+    harvesting-infraestructure:
+        build: ./harvesting-infraestructure/infraestructure
+        container_name: harvesting-infraestructure
+        restart: always
+        ports:
+            - "7080:7080"
+        depends_on:
+            - harvesting-postgres
+    harvesting-dashboard:
+        build: ./harvesting-dashboard/backend
+        container_name: harvesting-dashboard
+        restart: always
+        ports:
+            - "7081:7081"
+volumes:
+    postgres-data:
+        
+    

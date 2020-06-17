@@ -1,0 +1,190 @@
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { Card, CardBody } from "shards-react";
+
+import {Line} from "react-chartjs-2";
+
+class SmallStats extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {chartOptions: this.props.chartOptions}
+  }
+
+  componentDidMount() {
+    let  max = 0;
+    this.props.chartData.datasets.forEach((value) =>{
+      max = Math.max(max, ...value.data)
+    });
+
+    let options = this.props.chartOptions;
+    options.scales.yAxes.suggestedMax = max;
+
+    this.setState({chartOptions: options})
+
+}
+  render() {
+    const { chartData, variation, label, value, percentage, increase } = this.props;
+
+    const cardClasses = classNames(
+      "stats-small",
+      variation && `stats-small--${variation}`
+    );
+
+    const cardBodyClasses = classNames(
+      variation === "1" ? "p-0 d-flex" : "px-0 pb-0"
+    );
+
+    const innerWrapperClasses = classNames(
+      "d-flex",
+      variation === "1" ? "flex-column m-auto" : "px-3"
+    );
+
+    const dataFieldClasses = classNames(
+      "stats-small__data",
+      variation === "1" && "text-center"
+    );
+
+    const labelClasses = classNames(
+      "stats-small__label",
+      "text-uppercase",
+      variation !== "1" && "mb-1"
+    );
+
+    const valueClasses = classNames(
+      "stats-small__value",
+      "count",
+      variation === "1" ? "my-3" : "m-0"
+    );
+
+    const innerDataFieldClasses = classNames(
+      "stats-small__data",
+      variation !== "1" && "text-right align-items-center"
+    );
+
+    const percentageClasses = classNames(
+      "stats-small__percentage",
+      `stats-small__percentage--${increase ? "increase" : "decrease"}`
+    );
+
+    //console.log("### SmallStats", this.state.chartOptions, this.props.chartData);
+
+    return (
+      <Card small className={cardClasses}>
+        <CardBody className={cardBodyClasses}>
+          <div className={innerWrapperClasses}>
+            <div className={dataFieldClasses}>
+              <span className={labelClasses}>{label}</span>
+              <h6 className={valueClasses}>{value}</h6>
+            </div>
+            <div className={innerDataFieldClasses}>
+              <span className={percentageClasses}>{parseFloat(percentage).toFixed(2)}</span>
+            </div>
+          </div>
+          <Line data={chartData} options={this.state.chartOptions} height={60}/>
+        </CardBody>
+      </Card>
+    );
+  }
+}
+
+SmallStats.propTypes = {
+  /**
+   * The Small Stats variation.
+   */
+  variation: PropTypes.string,
+  /**
+   * The label.
+   */
+  label: PropTypes.string,
+  /**
+   * The value.
+   */
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /**
+   * The percentage number or string.
+   */
+  percentage: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /**
+   * Whether is a value increase, or not.
+   */
+  increase: PropTypes.bool,
+  /**
+   * The Chart.js configuration object.
+   */
+  chartConfig: PropTypes.object,
+  /**
+   * The Chart.js options object.
+   */
+  chartOptions: PropTypes.object,
+  /**
+   * The chart data.
+   */
+  chartData: PropTypes.object.isRequired,
+  /**
+   * The chart labels.
+   */
+  chartLabels: PropTypes.array
+};
+
+SmallStats.defaultProps = {
+  increase: true,
+  percentage: 0,
+  value: 0,
+  label: "Label",
+  chartOptions: {
+    ...{
+      maintainAspectRatio: true,
+      responsive: true,
+      legend: {
+        display: false
+      },
+      hover: {
+        mode: "nearest",
+        intersect: false
+      },
+
+      tooltips: {
+        custom: false,
+        mode: "nearest",
+        intersect: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        },
+        line: {
+          tension: 0.33
+        }
+      },
+      scales: {
+        xAxes: [
+          {
+            gridLines: false,
+            ticks: {
+              display: false
+            }
+          }
+        ],
+        yAxes: [
+          {
+            gridLines: false,
+            scaleLabel: false,
+            ticks: {
+              display: false,
+              isplay: false,
+              // Avoid getting the graph line cut of at the top of the canvas.
+              // Chart.js bug link: https://github.com/chartjs/Chart.js/issues/4790
+              suggestedMax: 0
+            }
+          }
+        ]
+      }
+    },
+  },
+  chartData: [],
+  chartLabels: []
+};
+
+export default SmallStats;
