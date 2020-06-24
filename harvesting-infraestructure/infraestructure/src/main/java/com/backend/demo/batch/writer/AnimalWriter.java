@@ -28,7 +28,6 @@ public class AnimalWriter implements ItemWriter<Animal> {
 		try {
 			animalRepository.save(animal);
 		} catch (Exception e) {
-			//TODO: handle exception
 			log.info("duplicate key error collection");
 		}
 		

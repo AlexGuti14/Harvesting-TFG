@@ -1,8 +1,6 @@
 package com.backend.demo.batch.model;
 
 import org.joda.time.LocalDate;
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

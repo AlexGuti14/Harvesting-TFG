@@ -78,21 +78,13 @@ public class QuartzJobLauncher extends QuartzJobBean {
 	 */
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-		try {
-			/*
-			JobParametersBuilder jobBuilder= new JobParametersBuilder();
-            jobBuilder.addString("filePath", "Hey");
-			JobParameters jobParameters =jobBuilder.toJobParameters();
-			*/
-			//String myObject = (String) context.getJobDetail().getJobDataMap().get("carrier");
-			
+		try {			
 			Job job = jobLocator.getJob(jobName);
 			JobExecution jobExecution = jobLauncher.run(job, new JobParameters());
 			log.info("{}_{} was completed successfully", job.getName(), jobExecution.getId());
 		} catch (Exception e) {
 			log.error("Encountered job execution exception!");
 		}
-
 	}
 
 }

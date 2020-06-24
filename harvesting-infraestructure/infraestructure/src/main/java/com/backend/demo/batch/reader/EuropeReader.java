@@ -22,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.backend.demo.batch.util.CellUtility;
-import com.backend.demo.batch.util.HttpDownloadUtility;
 import com.backend.demo.batch.model.DateJson;
 import com.backend.demo.batch.model.EuropePork;
 

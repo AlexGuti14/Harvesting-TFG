@@ -3,9 +3,6 @@ package com.backend.demo.batch.listener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.backend.demo.batch.reader.CerealReader;
-import com.backend.demo.batch.reader.PorcinoReaderSource1;
 import com.backend.demo.batch.reader.Reader;
 import com.backend.demo.batch.util.HttpDownloadUtility;
 

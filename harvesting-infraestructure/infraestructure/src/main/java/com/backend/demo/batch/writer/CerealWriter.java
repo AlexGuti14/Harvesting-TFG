@@ -29,7 +29,6 @@ public class CerealWriter implements ItemWriter<Cereal> {
 		try {
 			cerealRepository.save(cereals);
 		} catch (Exception e) {
-			//TODO: handle exception
 			log.info("duplicate key error collection");
 		}
 	}

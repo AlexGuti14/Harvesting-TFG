@@ -312,31 +312,6 @@ public class BatchConfiguration {
 	 * @return Job
 	 * @throws IOException
 	 */
-	/*
-	@Bean
-	public Job cerealETLJob() throws IOException {
-		cerealRepository.deleteAll();
-		List<CerealReader> readers = new ArrayList<CerealReader>();
-		readers.add(trigoReader());
-		readers.add(maizReader());
-		readers.add(arrozReader());
-		readers.add(cebadaReader());
-		return jobBuilderFactory.get("cereal_etl_job")
-								.incrementer(new RunIdIncrementer())
-								.listener(listenerCereal(readers))
-								.start(etlStepTrigo())
-								.next(etlStepMaiz())
-								.next(etlStepArroz())
-								.next(etlStepCebada())
-								.build();
-	}
-	*/
-
-	/** 
-	 * Configure job step
-	 * @return Job
-	 * @throws IOException
-	 */
 	
 	@Bean
 	public Job euETLJob() throws IOException {
