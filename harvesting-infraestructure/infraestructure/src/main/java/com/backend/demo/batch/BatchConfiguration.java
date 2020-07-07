@@ -131,9 +131,9 @@ public class BatchConfiguration {
 	 */
 	@Bean
 	public CerealReader trigoReader() throws IOException {
-		CerealReader t =  new CerealReader(11,36,4,filesDir,"TRIGO",1,3,4,2);
-		t.setFecha(10, 4);
-		return t;
+		CerealReader trigo =  new CerealReader(11,36,4,filesDir,"TRIGO",1,3,4,2);
+		trigo.setFecha(10, 4);
+		return trigo;
 	}
 
 	/** 
@@ -142,9 +142,9 @@ public class BatchConfiguration {
 	 */
 	@Bean
 	public CerealReader cebadaReader() throws IOException {
-		CerealReader t =  new CerealReader(8,47,5,filesDir,"CEBADA",1,3,4,2);
-		t.setFecha(7, 4);
-		return t;
+		CerealReader cebada =  new CerealReader(8,47,5,filesDir,"CEBADA",1,3,4,2);
+		cebada.setFecha(7, 4);
+		return cebada;
 	}
 
 	/** 

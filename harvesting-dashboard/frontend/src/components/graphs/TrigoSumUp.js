@@ -19,7 +19,7 @@ class TrigoSumUp extends React.Component {
     this.state = {
 	  smallStats: this.props.smallStats,
 	  open: false,
-	  market: 'Barcelona'
+	  market: 'Zaragoza'
 	};
 	this.toggle = this.toggle.bind(this);
 	this.click = this.click.bind(this);
@@ -77,7 +77,7 @@ class TrigoSumUp extends React.Component {
     let SmallStats = this.state.smallStats;
     SmallStats.forEach((stats)=> {
         const type = stats.label;
-        this.getData(type, "Barcelona", (aggegatedata, aggregatedDates) =>{
+        this.getData(type, "Zaragoza", (aggegatedata, aggregatedDates) =>{
           stats.chartData.datasets[0].data = aggegatedata;
           stats.chartData.labels = aggregatedDates;
           //console.log("### Data", aggegatedata, aggregatedDates);
@@ -104,6 +104,8 @@ class TrigoSumUp extends React.Component {
 			<DropdownMenu>
 			<DropdownItem  onClick={() => this.click("Barcelona")} >Barcelona</DropdownItem>
 			<DropdownItem onClick={() => this.click("Segovia")}>Segovia</DropdownItem>
+      <DropdownItem onClick={() => this.click("Sevilla")}>Sevilla</DropdownItem>
+      <DropdownItem onClick={() => this.click("Zaragoza")}>Zaragoza</DropdownItem>
 	  </DropdownMenu>
 	</Dropdown>
 	</Row>

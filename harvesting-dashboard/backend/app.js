@@ -63,7 +63,7 @@ var swaggerDefinition = {
 		version: '1.0.0',
 		description: 'Harvesting Service API Description'
 	},
-	host: 'localhost:8081',
+	host: '51.210.10.251:7081',
 	basePath: '/',
 	schemes: ['http', 'https']
 };

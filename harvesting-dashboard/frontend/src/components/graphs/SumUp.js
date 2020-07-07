@@ -1,10 +1,15 @@
 import SmallStats from "../common/SmallStats";
 import React from "react";
-import {Col, Row} from "shards-react";
+import {Col, Row,Container} from "shards-react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import {getHistoryData} from "../../backend/historic";
-
+import {
+	Dropdown,
+	DropdownToggle,
+	DropdownMenu,
+	DropdownItem
+} from "shards-react";
 
 class SumUp extends React.Component {
 
@@ -13,12 +18,22 @@ class SumUp extends React.Component {
 
     this.state = {
       smallStats: this.props.smallStats,
+      open: false,
+	    market: 'Binefar'
     };
+    this.toggle = this.toggle.bind(this);
+	  this.click = this.click.bind(this);
+  }
+
+  toggle() {
+    this.setState(prevState => {
+      return { open: !prevState.open };
+    });
   }
 
 
-  getData(type, callback){
-    getHistoryData({"limit": 4, "type": type, "market": "Binefar"}, (data)=>{
+  getData(type,market, callback){
+    getHistoryData({"limit": 4, "type": type, "market": market}, (data)=>{
       //console.log("### Done", type,  data);
       if (data.length === 0){
         callback([0,0,0,0])
@@ -35,13 +50,34 @@ class SumUp extends React.Component {
       )
   }
 
+  click(name){
+    let SmallStats = this.state.smallStats;
+    SmallStats.forEach((stats)=> {
+		const type = stats.label;
+		this.setState({market: name});
+        this.getData(type, name, (aggegatedata, aggregatedDates) =>{
+          stats.chartData.datasets[0].data = aggegatedata;
+          stats.chartData.labels = aggregatedDates;
+          //console.log("### Data", aggegatedata, aggregatedDates);
+          let percentage = ((aggegatedata[aggegatedata.length - 1] - aggegatedata[aggegatedata.length - 2])/aggegatedata[aggegatedata.length - 1]*100);
+          stats.increase = percentage >= 0;
+          stats.decrease = percentage < 0;
+          stats.percentage = percentage.toFixed(2)+ "%";
+          stats.value = aggegatedata[aggegatedata.length - 1];
+          this.setState({smallStats: SmallStats}, () => {
+            //console.log("###State ", this.state.smallStats)
+          })
+        })
+	})
+}
+
 
   componentDidMount() {
 
     let SmallStats = this.state.smallStats;
     SmallStats.forEach((stats)=> {
         const type = stats.label;
-        this.getData(type, (aggegatedata, aggregatedDates) =>{
+        this.getData(type, "Binefar", (aggegatedata, aggregatedDates) =>{
           stats.chartData.datasets[0].data = aggegatedata;
           stats.chartData.labels = aggregatedDates;
           //console.log("### Data", aggegatedata, aggregatedDates);
@@ -61,6 +97,24 @@ class SumUp extends React.Component {
 
   render() {
     return (
+      <Container>
+		<Row>
+		<Dropdown open={this.state.open} toggle={this.toggle}>
+			<DropdownToggle>{this.state.market}</DropdownToggle>
+			<DropdownMenu>
+      <DropdownItem onClick={() => this.click("Binefar")}>Binefar</DropdownItem>
+			<DropdownItem  onClick={() => this.click("Barcelona")} >Barcelona</DropdownItem>
+			<DropdownItem onClick={() => this.click("Segovia")}>Segovia</DropdownItem>
+      <DropdownItem onClick={() => this.click("Lerida")}>Lerida</DropdownItem>
+      <DropdownItem onClick={() => this.click("Huesca")}>Huesca</DropdownItem>
+      <DropdownItem onClick={() => this.click("Murcia")}>Murcia</DropdownItem>
+      <DropdownItem onClick={() => this.click("Pontevedra")}>Pontevedra</DropdownItem>
+      <DropdownItem onClick={() => this.click("Salamanca")}>Salamanca</DropdownItem>
+
+	  </DropdownMenu>
+	</Dropdown>
+	</Row>
+	<br></br>
       <Row>
         {this.state.smallStats.map((stats, idx) => (
           <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
@@ -78,6 +132,7 @@ class SumUp extends React.Component {
           </Col>
         ))}
       </Row>
+      </Container>
     )
   };
 }

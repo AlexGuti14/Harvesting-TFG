@@ -119,7 +119,7 @@ class HistoricCereal extends React.Component{
               maxHeight="40vh"
               striped
               hover
-              paging={true}
+              paging={false}
               data={{
               columns: market,
               rows: value

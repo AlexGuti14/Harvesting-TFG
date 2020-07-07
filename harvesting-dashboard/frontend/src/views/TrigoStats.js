@@ -1,39 +1,42 @@
 import React from "react";
-import { Container, Row, Col, Button } from "shards-react";
+import { Container, Row, Col, Button, ButtonGroup } from "shards-react";
 import {Link} from 'react-router-dom';
 
 import PageTitle from "../components/common/PageTitle";
-import TrigoGraph from "../components/layout/overview/TrigoGraph";
-import TrigoSumUp from "../components/graphs/TrigoSumUp";
+import PorkGraph from "../components/layout/overview/PorkGraph";
+import SumUp from "../components/graphs/SumUp"; //TODO Rename to MainGraph
+//import HistoricPork from "./HistoricPork"
 
-
-
-
-const TrigoStats = () => (
+const PorkStats = () => (
   <Container fluid className="main-content-container px-4">
     {/* Page Header */}
     <br></br>
-    <Link to={{
-		pathname: '/historicCereal',
-		state: {
-			cereal: 'TRIGO'
-		}
-	}}>
-    <Button className="float-right" size="lg" theme="success" >Histórico de precios</Button>
+    <ButtonGroup className="float-right">
+    <Link to="/europePork">
+    <Button  size="lg" >Europa</Button>
     </Link>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <Link to="/historicPork">
+    <Button size="lg" theme="success" >Histórico de precios</Button>
+    </Link>
+    </ButtonGroup>
+
     <Row noGutters className="page-header py-4">
-      <PageTitle title="TRIGO" subtitle="" className="text-sm-left mb-3" />
+      <PageTitle title="PORCINO" subtitle="" className="text-sm-left mb-3" />
     </Row>
 
-    <TrigoSumUp/>
+
+    {/* Small Stats Blocks */}
+    <SumUp/>
 
     <Row>
       {/* Main Graph */}
       <Col lg="12" md="12" sm="12" className="mb-4">
-        <TrigoGraph/>
+        <PorkGraph/>
       </Col>
     </Row>
   </Container>
 );
 
-export default TrigoStats;
+
+export default PorkStats;

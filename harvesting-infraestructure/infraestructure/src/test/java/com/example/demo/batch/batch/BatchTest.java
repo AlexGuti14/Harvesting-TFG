@@ -15,7 +15,7 @@ import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.test.MetaDataInstanceFactory;
 
 public class BatchTest {   
-	
+	/*
 	private String filesDir = "src/test/resources/filesTest/";
 	
 	@Test
@@ -40,4 +40,5 @@ public class BatchTest {
 		assertEquals(cereal.getMarket(), "Albacete");
 		assertEquals(cereal.getValue(), 197, 0);	
 	}
+	*/
 }

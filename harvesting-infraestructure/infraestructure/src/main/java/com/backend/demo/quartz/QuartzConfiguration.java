@@ -55,18 +55,6 @@ public class QuartzConfiguration {
 	 * @return JobDetailFactoryBean
 	 */
 	//Asign batch job to quartz
-	@Bean
-	public JobDetailFactoryBean jobDetailFactoryBean() {
-		JobDetailFactoryBean jobfactory = new JobDetailFactoryBean();
-		jobfactory.setJobClass(QuartzJobLauncher.class);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("jobName", "cereal_etl_job");
-		//Pass diferent parameters
-		jobfactory.setJobDataAsMap(map);
-		jobfactory.setGroup("SampleGroup");
-		jobfactory.setName("cereal_etl_job");
-		return jobfactory;
-	}
 
 	@Bean
 	public JobDetailFactoryBean jobDetailFactoryBeanP() {
@@ -99,20 +87,6 @@ public class QuartzConfiguration {
 	/** 
 	 * @return CronTriggerFactoryBean
 	 */
-	// Job is scheduled after every x minute
-	@Bean
-	public CronTriggerFactoryBean cronTriggerFactoryBean() {
-		CronTriggerFactoryBean ctFactory = new CronTriggerFactoryBean();
-		ctFactory.setJobDetail(jobDetailFactoryBean().getObject());
-		ctFactory.setStartDelay(100);
-		ctFactory.setName("cereal_etl_job");
-		ctFactory.setGroup("SampleGroup");
-		//0 0 12 * * THU
-		//0 0 21 ? * THU *
-		ctFactory.setCronExpression("*/40 * * * * ? *");
-		return ctFactory;
-	}
-
 	@Bean
 	public CronTriggerFactoryBean cronTriggerFactoryBeanP() {
 		CronTriggerFactoryBean ctFactory = new CronTriggerFactoryBean();
@@ -156,7 +130,6 @@ public class QuartzConfiguration {
         jobFactory.setApplicationContext(applicationContext);
 		factory.setJobFactory(jobFactory);
 		
-		//factory.setTriggers(cronTriggerFactoryBeanP().getObject(),cronTriggerFactoryBean().getObject());
 		factory.setTriggers(cronTriggerFactoryBeanP().getObject(),cronTriggerFactoryBeanEU().getObject());
         return factory;
     }

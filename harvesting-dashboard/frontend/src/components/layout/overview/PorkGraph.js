@@ -176,6 +176,11 @@ PorkGraph.defaultProps = {
   title: "Precios Medios en Mercados Representativos Españoles",
   chartOptions: {
     responsive: true,
+    title: {
+      display: true,
+      position: 'left',
+      text: 'Euro/Kilo'
+    },
     legend: {
       position: "top"
     },

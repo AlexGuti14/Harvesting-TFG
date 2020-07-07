@@ -19,7 +19,7 @@ class MaizSumUp extends React.Component {
     this.state = {
 	  smallStats: this.props.smallStats,
 	  open: false,
-	  market: 'Badajoz'
+	  market: 'Zaragoza'
 	};
 	this.toggle = this.toggle.bind(this);
 	this.click = this.click.bind(this);
@@ -77,7 +77,7 @@ class MaizSumUp extends React.Component {
     let SmallStats = this.state.smallStats;
     SmallStats.forEach((stats)=> {
         const type = stats.label;
-        this.getData(type, "Huesca", (aggegatedata, aggregatedDates) =>{
+        this.getData(type, "Zaragoza", (aggegatedata, aggregatedDates) =>{
           stats.chartData.datasets[0].data = aggegatedata;
           stats.chartData.labels = aggregatedDates;
           //console.log("### Data", aggegatedata, aggregatedDates);
@@ -103,7 +103,7 @@ class MaizSumUp extends React.Component {
 			<DropdownToggle>{this.state.market}</DropdownToggle>
 			<DropdownMenu>
 			<DropdownItem  onClick={() => this.click("Huesca")} >Huesca</DropdownItem>
-			<DropdownItem onClick={() => this.click("Segovia")}>Segovia</DropdownItem>
+			<DropdownItem onClick={() => this.click("Zaragoza")}>Zaragoza</DropdownItem>
 	  </DropdownMenu>
 	</Dropdown>
 	</Row>

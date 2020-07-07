@@ -46,6 +46,16 @@ public class AnimalProcessor implements ItemProcessor<Porcino, Animal> {
 		else if(clase.contains("GRASO")){
 			b.setClase("Graso");
 		}
+		else if(clase.contains("Segovia.Base 20kg de peso.")){
+			b.setClase("Lechon");
+			b.setMercado("Segovia");
+			b.setPrecioSemanaActual(String.valueOf(b.getPrecioSemanaActual()/100));
+		}
+		else if(clase.contains("Lleida.Base 20kg de peso.")){
+			b.setClase("Lechon");
+			b.setMercado("Lerida");
+			b.setPrecioSemanaActual(String.valueOf(b.getPrecioSemanaActual()/100));
+		}
 
 		String fecha = b.getSemanaActual();
 		if(fecha.contains("\n")){
